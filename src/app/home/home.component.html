@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="mb-3">
+    <button type="button" (click)="openModal()" class="btn btn-primary btn-md">
+      Create New Project
+    </button>
+
+    <div
+      id="myModal"
+      class="modal fade"
+      role="dialog"
+      [ngClass]="{ show: showModal }"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Create New Project</h4>
+            <button type="button" class="close" (click)="closeModal()">
+              &times;
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              #newProjectForm="ngForm"
+              (ngSubmit)="onSubmit(newProjectForm)"
+            >
+              <div>
+                <input
+                  type="text"
+                  placeholder="Project name"
+                  required
+                  maxlength="25"
+                  [(ngModel)]="projectName"
+                  name="projectName"
+                  #pickedName="ngModel"
+                />
+                <div *ngIf="!pickedName.valid && pickedName.touched">
+                  Project name is required!
+                </div>
+              </div>
+              <div *ngFor="let link of links; let i = index">
+                <label for="{{ link }}">{{ link }}</label>
+                <input
+                  type="checkbox"
+                  checked="selectedLinks[i]"
+                  [(ngModel)]="selectedLinks[i]"
+                  name="{{ link }}"
+                  id="{{ link }}"
+                />
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit">
+                  Register
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-default"
+                  (click)="closeModal()"
+                >
+                  Close
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <h2>Existing Projects</h2>
+    <ul>
+      <li class="project col-md-3" *ngFor="let project of projects">
+        <a routerLink="/projects">
+          <span (click)="projectDetails(project)">
+            Project Name: {{ project.name }}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

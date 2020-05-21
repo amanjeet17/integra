@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Project Details</h1>
+
+  <h3>Project Name : {{ project.name }}</h3>
+  <div class="row">
+    <h4 *ngIf="project.links.length==0">Oops you forgot to select any links </h4>
+    <div class="col-md-4" *ngFor="let number of project.links">
+      <button class="btn btn-primary btn-md" (click)="openWebsite(number)">
+        {{ number }}
+      </button>
+    </div>
+  </div>
+</div>
